@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>New Diary Entry</title>
+  <link rel="stylesheet" href="diaryappstyle.css" />
+</head>
+<body>
+  <h1>Write a New Entry</h1>
+  <form id="entryForm">
+    <input type="text" id="title" placeholder="Title" required />
+    <textarea id="content" placeholder="Your thoughts..." required></textarea>
+    <button type="submit">Save Entry</button>
+  </form>
+
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="new.html">New Entries</a>
+    <a href="entries.html">View Entries</a>
+    <a href="about.html">About</a>
+  </nav>
+
+  <script>
+    document.getElementById("entryForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const title = document.getElementById("title").value;
+      const content = document.getElementById("content").value;
+      const timestamp = new Date().toLocaleString();
+
+      const entry = { title, content, timestamp };
+      const entries = JSON.parse(localStorage.getItem("entries")) || [];
+      entries.push(entry);
+      localStorage.setItem("entries", JSON.stringify(entries));
+
+      alert("Entry saved!");
+      document.getElementById("entryForm").reset();
+    });
+  </script>
+</body>
+</html>
